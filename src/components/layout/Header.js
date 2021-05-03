@@ -121,7 +121,7 @@ const Header = ({
                       "list-reset text-xs",
                       navPosition && `header-nav-${navPosition}`
                     )}
-                    style={{ flexFlow: "nowrap" }}
+                    // style={{ flexFlow: "nowrap" }}
                   >
                     <li>
                       <HashLink
