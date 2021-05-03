@@ -198,10 +198,11 @@ const HowToBuy = ({
                   5. Adjust your slippage greater than 10%
                 </h3>
                 <p className="m-0">
-                  Click the gear icon to set the slippage amount. Make sure it
-                  is greater than 10%. Set the amount you want to swap and if
-                  you see "INSUFFICIENT_OUTPUT_AMOUNT" after trying to execute
-                  the trade then you should adjust the slippage higher.
+                  Click the icon in the top right to set the slippage amount.
+                  Make sure it is greater than 10%. Set the amount you want to
+                  swap and if you see "INSUFFICIENT_OUTPUT_AMOUNT" after trying
+                  to execute the trade then you should adjust the slippage
+                  higher.
                 </p>
               </div>
               <div
