@@ -130,7 +130,7 @@ const Header = ({
                         onClick={closeMenu}
                         scroll={(el) => scrollWithOffset(el)}
                       >
-                        Tokenomics
+                        • Tokenomics
                       </HashLink>
                     </li>
                     <li>
@@ -140,7 +140,7 @@ const Header = ({
                         onClick={closeMenu}
                         scroll={(el) => scrollWithOffset(el)}
                       >
-                        Tax Breakdown
+                        • Tax Breakdown
                       </HashLink>
                     </li>
                     <li>
@@ -150,7 +150,17 @@ const Header = ({
                         onClick={closeMenu}
                         scroll={(el) => scrollWithOffset(el)}
                       >
-                        How To Buy
+                        • How To Buy
+                      </HashLink>
+                    </li>
+                    <li>
+                      <HashLink
+                        smooth
+                        to="#participate"
+                        onClick={closeMenu}
+                        scroll={(el) => scrollWithOffset(el)}
+                      >
+                        • Participating in the 50/50
                       </HashLink>
                     </li>
                   </ul>

@@ -64,6 +64,7 @@ const HowToBuy = ({
               <div
                 className="split-item-content center-content-mobile reveal-from-right"
                 data-reveal-container=".split-item"
+                // style={{ marginTop: "1rem" }}
               >
                 <h3 className="mt-0 mb-12">
                   1. Install a wallet (e.g. Metamask or Trust Wallet)

@@ -61,6 +61,14 @@ const Footer = ({ className, topOuterDivider, topDivider, ...props }) => {
               >
                 How To Buy
               </HashLink>
+              {" | "}
+              <HashLink
+                smooth
+                to="#participate"
+                scroll={(el) => scrollWithOffset(el)}
+              >
+                Participating in the 50/50
+              </HashLink>
             </div>
             <FooterSocial />
           </div>
