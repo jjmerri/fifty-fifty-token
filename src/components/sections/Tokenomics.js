@@ -51,7 +51,7 @@ const HowToParticipate = ({
   const taxHeader = {
     id: "taxBreakdown",
     title: "Tax Breakdown",
-    paragraph: "9% total tax designed to change lives and reward hodlers",
+    paragraph: "9.5% total tax designed to change lives and reward hodlers",
   };
 
   return (
@@ -127,35 +127,11 @@ const HowToParticipate = ({
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">45% Locked LP</h4>
+                  <h4 className="mt-0 mb-8">50% Locked Liquidity</h4>
                   <p className="m-0 text-sm">
-                    45% sent to the liquidity pool and locked to remove the
-                    possiblity of a rug pull
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className="tiles-item reveal-from-bottom"
-              data-reveal-delay="200"
-            >
-              <div className="tiles-item-inner">
-                <div className="features-tiles-item-header">
-                  <div className="features-tiles-item-image mb-16">
-                    <Image
-                      src={require("./../../assets/images/feature-tile-icon-02.svg")}
-                      alt="Features tile icon 06"
-                      width={64}
-                      height={64}
-                    />
-                  </div>
-                </div>
-                <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">5% Locked Dev Wallet</h4>
-                  <p className="m-0 text-sm">
-                    5% distributed to a locked dev wallet to incentivise further
-                    development and recoup initial liquidity costs
+                    100% of unburned tokens sent to the liquidity pool and
+                    locked for a fair launch and to remove the possiblity of a
+                    rug pull
                   </p>
                 </div>
               </div>
@@ -177,9 +153,9 @@ const HowToParticipate = ({
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">9% Transaction Tax</h4>
+                  <h4 className="mt-0 mb-8">9.5% Transaction Tax</h4>
                   <p className="m-0 text-sm">
-                    9% tax is applied to all transactions to accomplish the
+                    9.5% tax is applied to all transactions to accomplish the
                     token's goals. See tax breakdown below
                   </p>
                 </div>
@@ -257,6 +233,29 @@ const HowToParticipate = ({
                   <p className="m-0 text-sm">
                     2% of every transaction is added back into liquidity to help
                     stablize the price and protect against large sells
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="tiles-item reveal-from-bottom">
+              <div className="tiles-item-inner">
+                <div className="features-tiles-item-header">
+                  <div className="features-tiles-item-image mb-16">
+                    <Image
+                      src={require("./../../assets/images/feature-tile-icon-04.svg")}
+                      alt="Features tile icon 04"
+                      width={64}
+                      height={64}
+                    />
+                  </div>
+                </div>
+                <div className="features-tiles-item-content">
+                  <h4 className="mt-0 mb-8">.5% Dev</h4>
+                  <p className="m-0 text-sm">
+                    .5% of every transaction is moved to the dev wallet to
+                    incentivise further development and recoup initial liquidity
+                    costs
                   </p>
                 </div>
               </div>
