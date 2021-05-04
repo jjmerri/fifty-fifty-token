@@ -5,6 +5,7 @@
    2% fee auto add to the liquidity pool to be locked forever when selling
    2% fee auto distribute to all holders
    1% fee auto moved to marketing wallet
+   .5% fee auto moved to dev wallet
    4% fee auto moved to activity wallet
       -2% to charity
       -2% to winner of giveaway
@@ -784,6 +785,7 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
       uint256 tLiquidity;
       uint256 tCharity;
       uint256 tMarketing;
+      uint256 tDev;
     }
 
     mapping (address => uint256) private _rOwned;
@@ -797,6 +799,7 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
 
     address private _charityWalletAddress = 0x5c9a6c9bDf95292aD11ce72df319d9bb13D0D71B;
     address private _marketingWalletAddress = 0x902A741A778234CEb8A1BfF7C0E058c396399B8F;
+    address private _devWalletAddress = 0xFE3cf99fd8540AEf7b89527B7806f4e1f306Aa06;
    
     uint8 private _decimals = 9;
     uint256 private constant MAX = ~uint256(0);
@@ -818,6 +821,11 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     
     uint256 public _marketingFee = 1;
     uint256 private _previousMarketingFee = _marketingFee;
+
+    // This is actually .5% because we divide the calculated tax by 2
+    uint256 public _devFee = 1;
+    uint256 private _previousDevFee = _devFee;
+    bool    public _devFeeRemoved = false;
     
 
     IUniswapV2Router02 public immutable uniswapV2Router;
@@ -863,6 +871,7 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         _isExcludedFromFee[address(this)] = true;
         _isExcludedFromFee[_charityWalletAddress] = true;
         _isExcludedFromFee[_marketingWalletAddress] = true;
+        _isExcludedFromFee[_devWalletAddress] = true;
         
         emit Transfer(address(0), owner(), _tTotal);
     }
@@ -934,7 +943,7 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     function deliver(uint256 tAmount) public {
         address sender = _msgSender();
         require(!_isExcluded[sender], "Excluded addresses cannot call this function");
-        (uint256 rAmount,,,,,,,) = _getValues(tAmount);
+        (uint256 rAmount,,,,,,,,) = _getValues(tAmount);
         _rOwned[sender] = _rOwned[sender].sub(rAmount);
         _rTotal = _rTotal.sub(rAmount);
         _tFeeTotal = _tFeeTotal.add(tAmount);
@@ -943,10 +952,10 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     function reflectionFromToken(uint256 tAmount, bool deductTransferFee) public view returns(uint256) {
         require(tAmount <= _tTotal, "Amount must be less than supply");
         if (!deductTransferFee) {
-            (uint256 rAmount,,,,,,,) = _getValues(tAmount);
+            (uint256 rAmount,,,,,,,,) = _getValues(tAmount);
             return rAmount;
         } else {
-            (,uint256 rTransferAmount,,,,,,) = _getValues(tAmount);
+            (,uint256 rTransferAmount,,,,,,,) = _getValues(tAmount);
             return rTransferAmount;
         }
     }
@@ -1003,6 +1012,21 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     function setMarketingFeePercent(uint256 marketingFee) external onlyOwner() {
         _marketingFee = marketingFee;
     }
+
+    // want to be able to pause the dev fee in case it becomes too much
+    function pauseDevFee() external onlyOwner() {
+        _devFee = 0;
+    }
+
+    function restoreDevFee() external onlyOwner() {
+        if (!_devFeeRemoved)
+            _devFee = 1;
+    }
+
+    // gives the ability to remove the dev fee and never add it back
+    function removeDevFee() external onlyOwner() {
+        _devFeeRemoved = true;
+    }
     
     function setCharityWallet(address charityWallet) external onlyOwner() {
         _isExcludedFromFee[_charityWalletAddress] = false;
@@ -1014,6 +1038,12 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         _isExcludedFromFee[_marketingWalletAddress] = false;
         _isExcludedFromFee[marketingWallet] = true;
         _marketingWalletAddress = marketingWallet;
+    }
+
+    function setDevWallet(address devWallet) external onlyOwner() {
+        _isExcludedFromFee[_devWalletAddress] = false;
+        _isExcludedFromFee[devWallet] = true;
+        _devWalletAddress = devWallet;
     }
 
     function setSwapAndLiquifyEnabled(bool _enabled) public onlyOwner {
@@ -1029,10 +1059,10 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         _tFeeTotal = _tFeeTotal.add(tFee);
     }
 
-    function _getValues(uint256 tAmount) private view returns (uint256, uint256, uint256, uint256, uint256, uint256, uint256, uint256) {
+    function _getValues(uint256 tAmount) private view returns (uint256, uint256, uint256, uint256, uint256, uint256, uint256, uint256, uint256) {
         TValues memory tValues = _getTValues(tAmount);
-        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee) = _getRValues(tAmount, tValues.tFee, tValues.tLiquidity, tValues.tCharity, tValues.tMarketing, _getRate());
-        return (rAmount, rTransferAmount, rFee, tValues.tTransferAmount, tValues.tFee, tValues.tLiquidity, tValues.tCharity, tValues.tMarketing);
+        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee) = _getRValues(tAmount, tValues.tFee, tValues.tLiquidity, tValues.tCharity, tValues.tMarketing, tValues.tDev, _getRate());
+        return (rAmount, rTransferAmount, rFee, tValues.tTransferAmount, tValues.tFee, tValues.tLiquidity, tValues.tCharity, tValues.tMarketing, tValues.tDev);
     }
 
     function _getTValues(uint256 tAmount) private view returns (TValues memory) {
@@ -1041,24 +1071,34 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         uint256 tLiquidity = calculateLiquidityFee(tAmount);
         uint256 tCharity = calculateCharityFee(tAmount);
         uint256 tMarketing = calculateMarketingFee(tAmount);
-        uint256 tTransferAmount = tAmount.sub(tFee).sub(tLiquidity).sub(tCharity).sub(tMarketing);
+        uint256 tDev = calculateDevFee(tAmount);
+        
+        // temp because stack too deep error so split operations
+        uint256 tTransferAmountTemp = tAmount.sub(tFee).sub(tLiquidity).sub(tCharity);
+        uint256 tTransferAmount = tTransferAmountTemp.sub(tMarketing).sub(tDev);
         
         tValues.tFee = tFee;
         tValues.tLiquidity = tLiquidity;
         tValues.tCharity = tCharity;
         tValues.tMarketing = tMarketing;
+        tValues.tDev = tDev;
         tValues.tTransferAmount = tTransferAmount;
         
         return tValues;
     }
 
-    function _getRValues(uint256 tAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing, uint256 currentRate) private pure returns (uint256, uint256, uint256) {
+    function _getRValues(uint256 tAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing, uint256 tDev, uint256 currentRate) private pure returns (uint256, uint256, uint256) {
         uint256 rAmount = tAmount.mul(currentRate);
         uint256 rFee = tFee.mul(currentRate);
         uint256 rLiquidity = tLiquidity.mul(currentRate);
         uint256 rCharity = tCharity.mul(currentRate);
         uint256 rMarketing = tMarketing.mul(currentRate);
-        uint256 rTransferAmount = rAmount.sub(rFee).sub(rLiquidity).sub(rCharity).sub(rMarketing);
+        uint256 rDev = tDev.mul(currentRate);
+        
+        // temp because stack too deep error so split operations
+        uint256 rTransferAmountTemp = rAmount.sub(rFee).sub(rLiquidity).sub(rCharity);
+        uint256 rTransferAmount = rTransferAmountTemp.sub(rMarketing).sub(rDev);
+        
         return (rAmount, rTransferAmount, rFee);
     }
 
@@ -1103,6 +1143,14 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
             _tOwned[_marketingWalletAddress] = _tOwned[_marketingWalletAddress].add(tMarketing);
     }
     
+    function _takeDev(uint256 tDev) private {
+        uint256 currentRate =  _getRate();
+        uint256 rDev = tDev.mul(currentRate);
+        _rOwned[_devWalletAddress] = _rOwned[_devWalletAddress].add(rDev);
+        if(_isExcluded[_devWalletAddress])
+            _tOwned[_devWalletAddress] = _tOwned[_devWalletAddress].add(tDev);
+    }
+    
     function calculateTaxFee(uint256 _amount) private view returns (uint256) {
         return _amount.mul(_taxFee).div(
             10**2
@@ -1126,19 +1174,28 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
             10**2
         );
     }
+
+    // divide by 2 so we can have half percentages
+    function calculateDevFee(uint256 _amount) private view returns (uint256) {
+        return _amount.mul(_devFee).div(
+            10**2
+        ).div(2);
+    }
     
     function removeAllFee() private {
-        if(_taxFee == 0 && _liquidityFee == 0 && _charityFee == 0 && _marketingFee == 0) return;
+        if(_taxFee == 0 && _liquidityFee == 0 && _charityFee == 0 && _marketingFee == 0 && _devFee == 0) return;
         
         _previousTaxFee = _taxFee;
         _previousCharityFee = _charityFee;
         _previousLiquidityFee = _liquidityFee;
         _previousMarketingFee = _marketingFee;
+        _previousDevFee = _devFee;
         
         _taxFee = 0;
         _charityFee = 0;
         _liquidityFee = 0;
         _marketingFee = 0;
+        _devFee = 0;
     }
     
     function restoreAllFee() private {
@@ -1146,6 +1203,7 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         _charityFee = _previousCharityFee;
         _liquidityFee = _previousLiquidityFee;
         _marketingFee = _previousMarketingFee;
+        _devFee = _previousDevFee;
     }
     
     function isExcludedFromFee(address account) public view returns(bool) {
@@ -1195,7 +1253,7 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
             takeFee = false;
         }
         
-        //transfer amount, it will take tax, liquidity, charity, and marketing fee
+        //transfer amount, it will take tax, liquidity, charity, marketing, and dev fee
         _tokenTransfer(from,to,amount,takeFee);
     }
 
@@ -1277,42 +1335,45 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     }
 
     function _transferStandard(address sender, address recipient, uint256 tAmount) private {
-        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing) = _getValues(tAmount);
+        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing, uint256 tDev) = _getValues(tAmount);
         _rOwned[sender] = _rOwned[sender].sub(rAmount);
         _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount);
         _takeLiquidity(tLiquidity);
         _takeCharity(tCharity);
         _takeMarketing(tMarketing);
+        _takeDev(tDev);
         _reflectFee(rFee, tFee);
         emit Transfer(sender, recipient, tTransferAmount);
     }
 
     function _transferToExcluded(address sender, address recipient, uint256 tAmount) private {
-        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing) = _getValues(tAmount);
+        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing, uint256 tDev) = _getValues(tAmount);
         _rOwned[sender] = _rOwned[sender].sub(rAmount);
         _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount);
         _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount);           
         _takeLiquidity(tLiquidity);
         _takeCharity(tCharity);
         _takeMarketing(tMarketing);
+        _takeDev(tDev);
         _reflectFee(rFee, tFee);
         emit Transfer(sender, recipient, tTransferAmount);
     }
 
     function _transferFromExcluded(address sender, address recipient, uint256 tAmount) private {
-        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing) = _getValues(tAmount);
+        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing, uint256 tDev) = _getValues(tAmount);
         _tOwned[sender] = _tOwned[sender].sub(tAmount);
         _rOwned[sender] = _rOwned[sender].sub(rAmount);
         _rOwned[recipient] = _rOwned[recipient].add(rTransferAmount);   
         _takeLiquidity(tLiquidity);
         _takeCharity(tCharity);
         _takeMarketing(tMarketing);
+        _takeDev(tDev);
         _reflectFee(rFee, tFee);
         emit Transfer(sender, recipient, tTransferAmount);
     }
     
     function _transferBothExcluded(address sender, address recipient, uint256 tAmount) private {
-        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing) = _getValues(tAmount);
+        (uint256 rAmount, uint256 rTransferAmount, uint256 rFee, uint256 tTransferAmount, uint256 tFee, uint256 tLiquidity, uint256 tCharity, uint256 tMarketing, uint256 tDev) = _getValues(tAmount);
         _tOwned[sender] = _tOwned[sender].sub(tAmount);
         _rOwned[sender] = _rOwned[sender].sub(rAmount);
         _tOwned[recipient] = _tOwned[recipient].add(tTransferAmount);
@@ -1320,6 +1381,7 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         _takeLiquidity(tLiquidity);
         _takeCharity(tCharity);
         _takeMarketing(tMarketing);
+        _takeDev(tDev);
         _reflectFee(rFee, tFee);
         emit Transfer(sender, recipient, tTransferAmount);
     }
