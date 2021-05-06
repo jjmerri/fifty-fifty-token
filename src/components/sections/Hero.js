@@ -1,6 +1,9 @@
 import React from "react";
 import classNames from "classnames";
 import { SectionProps } from "../../utils/SectionProps";
+import Logo from "../layout/partials/Logo";
+import Button from "../elements/Button";
+import ButtonGroup from "../elements/ButtonGroup";
 
 const propTypes = {
   ...SectionProps.types,
@@ -8,6 +11,12 @@ const propTypes = {
 
 const defaultProps = {
   ...SectionProps.defaults,
+};
+
+const contractAddress = "TBD";
+
+const handleNotAvailable = () => {
+  alert("Not yet available.");
 };
 
 const Hero = ({
@@ -42,7 +51,7 @@ const Hero = ({
   );
 
   const innerClasses = classNames(
-    "hero-inner section-inner",
+    "hero-inner",
     topDivider && "has-top-divider",
     bottomDivider && "has-bottom-divider"
   );
@@ -53,11 +62,65 @@ const Hero = ({
         <div className={innerClasses}>
           <div className="hero-content">
             <h1
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Logo style={{ display: "inline-block", marginRight: "1rem" }} />{" "}
+              Fifty Fifty Token
+              <Logo style={{ display: "inline-block", marginLeft: "1rem" }} />
+            </h1>
+            <div
+              className="container-xs"
+              style={{ marginTop: "-1rem", marginBottom: "80px" }}
+            >
+              <p
+                className="m-0 mb-32 reveal-from-bottom"
+                data-reveal-delay="400"
+              >
+                {`50/50 Token is a charity token that rewards hodlers with reflection and free 50/50 giveaways.`}
+              </p>
+              <p
+                className="m-0 mb-32 reveal-from-bottom"
+                data-reveal-delay="400"
+              >
+                {`Contract Address: ${contractAddress}`}
+              </p>
+              <div className="reveal-from-bottom" data-reveal-delay="600">
+                <ButtonGroup>
+                  <Button
+                    tag="a"
+                    color="primary"
+                    wideMobile
+                    // href={`https://bscscan.com/token/${contractAddress}`}
+                    // target="_blank"
+                    // rel="noopener noreferrer"
+                    onClick={handleNotAvailable}
+                  >
+                    50/50 Token on BscScan
+                  </Button>
+                  <Button
+                    tag="a"
+                    color="dark"
+                    wideMobile
+                    // href={`https://bscscan.com/address/${contractAddress}#code`}
+                    // target="_blank"
+                    // rel="noopener noreferrer"
+                    onClick={handleNotAvailable}
+                  >
+                    Contract Code on BscScan
+                  </Button>
+                </ButtonGroup>
+              </div>
+            </div>
+            <h2
               className="mt-0 mb-16 reveal-from-bottom"
               data-reveal-delay="200"
             >
               Our Mission is Philanthropy
-            </h1>
+            </h2>
             <div className="container-xs">
               <p
                 className="m-0 mb-32 reveal-from-bottom"
