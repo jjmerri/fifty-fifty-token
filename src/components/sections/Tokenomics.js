@@ -203,7 +203,7 @@ const HowToParticipate = ({
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">2% Charity</h4>
+                  <h4 className="mt-0 mb-8">2% 50/50 giveaways</h4>
                   <p className="m-0 text-sm">
                     2% of every transaction is moved to the charity wallet for
                     50/50 giveaways and contests where half goes to charity and
