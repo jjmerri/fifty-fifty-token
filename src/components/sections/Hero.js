@@ -126,7 +126,7 @@ const Hero = ({
                 className="m-0 mb-32 reveal-from-bottom"
                 data-reveal-delay="400"
               >
-                A 4% tax on all transactions funds the charity wallet that will
+                A 2% tax on all transactions funds the charity wallet that will
                 change lives. When it is time to donate, the wallet's funds are
                 split 50/50 where half goes to charity and the other half goes
                 to a Fifty Fifty Token hodler via a random draw giveaway or

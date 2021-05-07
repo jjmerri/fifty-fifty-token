@@ -6,9 +6,9 @@
    2% fee auto distribute to all holders
    1% fee auto moved to marketing wallet
    .5% fee auto moved to dev wallet
-   4% fee auto moved to activity wallet
-      -2% to charity
-      -2% to winner of giveaway
+   2% fee auto moved to activity wallet
+      -1% to charity
+      -1% to winner of giveaway
 */
 
 pragma solidity ^0.8.4;
@@ -810,10 +810,10 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     string private _name = "Fifty Fifty Token";
     string private _symbol = "50/50";
     
-    uint256 public _taxFee = 2;
+    uint256 public _taxFee = 4;
     uint256 private _previousTaxFee = _taxFee;
     
-    uint256 public _charityFee = 4;
+    uint256 public _charityFee = 2;
     uint256 private _previousCharityFee = _charityFee;
     
     uint256 public _liquidityFee = 2;

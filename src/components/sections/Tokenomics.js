@@ -165,29 +165,6 @@ const HowToParticipate = ({
 
           <SectionHeader data={taxHeader} className="center-content" />
           <div className={tilesClasses}>
-            <div className="tiles-item reveal-from-bottom">
-              <div className="tiles-item-inner">
-                <div className="features-tiles-item-header">
-                  <div className="features-tiles-item-image mb-16">
-                    <Image
-                      src={require("./../../assets/images/feature-tile-icon-01.svg")}
-                      alt="Features tile icon 01"
-                      width={64}
-                      height={64}
-                    />
-                  </div>
-                </div>
-                <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">4% Charity</h4>
-                  <p className="m-0 text-sm">
-                    4% of every transaction is moved to the charity wallet for
-                    50/50 giveaways and contests where half goes to charity and
-                    half goes to a hodler
-                  </p>
-                </div>
-              </div>
-            </div>
-
             <div
               className="tiles-item reveal-from-bottom"
               data-reveal-delay="200"
@@ -204,10 +181,33 @@ const HowToParticipate = ({
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">2% Reflection</h4>
+                  <h4 className="mt-0 mb-8">4% Reflection</h4>
                   <p className="m-0 text-sm">
-                    2% of every transaction is automatically distributed back to
+                    4% of every transaction is automatically distributed back to
                     every hodler's wallet to incentivise long term investing
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="tiles-item reveal-from-bottom">
+              <div className="tiles-item-inner">
+                <div className="features-tiles-item-header">
+                  <div className="features-tiles-item-image mb-16">
+                    <Image
+                      src={require("./../../assets/images/feature-tile-icon-01.svg")}
+                      alt="Features tile icon 01"
+                      width={64}
+                      height={64}
+                    />
+                  </div>
+                </div>
+                <div className="features-tiles-item-content">
+                  <h4 className="mt-0 mb-8">2% Charity</h4>
+                  <p className="m-0 text-sm">
+                    2% of every transaction is moved to the charity wallet for
+                    50/50 giveaways and contests where half goes to charity and
+                    half goes to a hodler
                   </p>
                 </div>
               </div>
@@ -243,29 +243,6 @@ const HowToParticipate = ({
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
                     <Image
-                      src={require("./../../assets/images/feature-tile-icon-04.svg")}
-                      alt="Features tile icon 04"
-                      width={64}
-                      height={64}
-                    />
-                  </div>
-                </div>
-                <div className="features-tiles-item-content">
-                  <h4 className="mt-0 mb-8">.5% Dev</h4>
-                  <p className="m-0 text-sm">
-                    .5% of every transaction is moved to the dev wallet to
-                    incentivise further development and recoup initial liquidity
-                    costs
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="tiles-item reveal-from-bottom">
-              <div className="tiles-item-inner">
-                <div className="features-tiles-item-header">
-                  <div className="features-tiles-item-image mb-16">
-                    <Image
                       src={require("./../../assets/images/feature-tile-icon-05.svg")}
                       alt="Features tile icon 04"
                       width={64}
@@ -280,6 +257,29 @@ const HowToParticipate = ({
                     which is used to further the success of the token. It will
                     be used for but not limited to hiring
                     devs/designers/marketers and to pay for ads
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="tiles-item reveal-from-bottom">
+              <div className="tiles-item-inner">
+                <div className="features-tiles-item-header">
+                  <div className="features-tiles-item-image mb-16">
+                    <Image
+                      src={require("./../../assets/images/feature-tile-icon-04.svg")}
+                      alt="Features tile icon 04"
+                      width={64}
+                      height={64}
+                    />
+                  </div>
+                </div>
+                <div className="features-tiles-item-content">
+                  <h4 className="mt-0 mb-8">.5% Dev</h4>
+                  <p className="m-0 text-sm">
+                    .5% of every transaction is moved to the dev wallet to
+                    incentivise further development and recoup initial liquidity
+                    costs
                   </p>
                 </div>
               </div>
