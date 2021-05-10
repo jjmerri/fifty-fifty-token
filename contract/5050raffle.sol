@@ -940,6 +940,9 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         return _tFeeTotal;
     }
 
+    // Why would anyone call this? Manually take a fee from me please?
+    // I want to remove it but I don't know if I am missing something important.
+    // leaving it just in case there is a use case for it
     function deliver(uint256 tAmount) public {
         address sender = _msgSender();
         require(!_isExcluded[sender], "Excluded addresses cannot call this function");
@@ -1049,6 +1052,11 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     function setSwapAndLiquifyEnabled(bool _enabled) public onlyOwner {
         swapAndLiquifyEnabled = _enabled;
         emit SwapAndLiquifyEnabledUpdated(_enabled);
+    }
+
+    function setMinTokensBeforeSwap(uint256 minTokensBeforeSwap) public onlyOwner {
+        numTokensSellToAddToLiquidity = minTokensBeforeSwap;
+        emit MinTokensBeforeSwapUpdated(minTokensBeforeSwap);
     }
     
      //to recieve ETH from uniswapV2Router when swaping
