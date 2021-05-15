@@ -797,6 +797,10 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     mapping (address => bool) private _isExcluded;
     address[] private _excluded;
 
+    // intended to block some bots before launch
+    // this will prevent receiving tokens not selling
+    mapping (address => bool) private _isDenyListed;
+
     address private _charityWalletAddress = 0x5c9a6c9bDf95292aD11ce72df319d9bb13D0D71B;
     address private _marketingWalletAddress = 0x902A741A778234CEb8A1BfF7C0E058c396399B8F;
     address private _devWalletAddress = 0xFE3cf99fd8540AEf7b89527B7806f4e1f306Aa06;
@@ -936,6 +940,10 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         return _isExcluded[account];
     }
 
+    function isDenyListed(address account) public view returns (bool) {
+        return _isDenyListed[account];
+    }
+
     function totalFees() public view returns (uint256) {
         return _tFeeTotal;
     }
@@ -996,6 +1004,14 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         _isExcludedFromFee[account] = true;
     }
     
+    function addToDenyList(address account) public onlyOwner {
+        _isDenyListed[account] = true;
+    }
+    
+    function removeFromDenyList(address account) public onlyOwner {
+        _isDenyListed[account] = false;
+    }
+    
     function includeInFee(address account) public onlyOwner {
         _isExcludedFromFee[account] = false;
     }
@@ -1022,8 +1038,8 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
     }
 
     function restoreDevFee() external onlyOwner() {
-        if (!_devFeeRemoved)
-            _devFee = 1;
+        require(!_devFeeRemoved, "Dev fee has been removed and cannot be restored");
+        _devFee = 1;
     }
 
     // gives the ability to remove the dev fee and never add it back
@@ -1234,6 +1250,7 @@ contract FiftyFiftyToken is Context, IERC20, Ownable {
         require(from != address(0), "ERC20: transfer from the zero address");
         require(to != address(0), "ERC20: transfer to the zero address");
         require(amount > 0, "Transfer amount must be greater than zero");
+        require(!_isDenyListed[to], "Addresses on the deny list cannot receive tokens");
 
         // is the token balance of this contract address over the min number of
         // tokens that we need to initiate a swap + liquidity lock?
