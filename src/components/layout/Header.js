@@ -167,16 +167,16 @@ const Header = ({
                   {!hideSignin && (
                     <ul className="list-reset header-nav-right">
                       <li>
-                        {/* <a
-                          href="https://exchange.pancakeswap.finance/#/swap?outputCurrency="
+                        <a
+                          href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x34D266A0cd7298A28D664F3FF9e16ccCa53F06f2"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="button button-primary button-wide-mobile button-sm"
                           onClick={closeMenu}
                         >
                           Buy on PancakeSwap V2
-                        </a> */}
-                        <button
+                        </a>
+                        {/* <button
                           href="https://exchange.pancakeswap.finance/#/swap?outputCurrency="
                           target="_blank"
                           rel="noopener noreferrer"
@@ -184,7 +184,7 @@ const Header = ({
                           onClick={handleBuyClick}
                         >
                           Buy on PancakeSwap V2
-                        </button>
+                        </button> */}
                       </li>
                     </ul>
                   )}

@@ -13,7 +13,7 @@ const defaultProps = {
   ...SectionProps.defaults,
 };
 
-const contractAddress = "TBD";
+const contractAddress = "0x34D266A0cd7298A28D664F3FF9e16ccCa53F06f2";
 
 const handleNotAvailable = () => {
   alert("Not yet available.");
@@ -94,10 +94,9 @@ const Hero = ({
                     tag="a"
                     color="primary"
                     wideMobile
-                    // href={`https://bscscan.com/token/${contractAddress}`}
-                    // target="_blank"
-                    // rel="noopener noreferrer"
-                    onClick={handleNotAvailable}
+                    href={`https://bscscan.com/token/${contractAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     50/50 Token on BscScan
                   </Button>
@@ -105,10 +104,9 @@ const Hero = ({
                     tag="a"
                     color="dark"
                     wideMobile
-                    // href={`https://bscscan.com/address/${contractAddress}#code`}
-                    // target="_blank"
-                    // rel="noopener noreferrer"
-                    onClick={handleNotAvailable}
+                    href={`https://bscscan.com/address/${contractAddress}#code`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Contract Code on BscScan
                   </Button>
