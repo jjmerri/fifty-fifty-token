@@ -40,11 +40,6 @@ const Header = ({
     window.scrollTo({ top: yCoordinate + yOffset, behavior: "smooth" });
   };
 
-  const handleBuyClick = () => {
-    closeMenu();
-    alert("Not yet available for purchase");
-  };
-
   useEffect(() => {
     isActive && openMenu();
     document.addEventListener("keydown", keyPress);

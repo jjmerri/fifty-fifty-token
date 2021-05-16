@@ -15,10 +15,6 @@ const defaultProps = {
 
 const contractAddress = "0x34D266A0cd7298A28D664F3FF9e16ccCa53F06f2";
 
-const handleNotAvailable = () => {
-  alert("Not yet available.");
-};
-
 const Hero = ({
   className,
   topOuterDivider,
