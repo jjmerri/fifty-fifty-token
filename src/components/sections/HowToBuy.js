@@ -140,7 +140,7 @@ const HowToBuy = ({
                     PancakeSwap
                   </a>{" "}
                   in your wallet app or with your browser if you are using a
-                  Chrome extenesion. Click connect in the top right and select
+                  Chrome extension. Click connect in the top right and select
                   your wallet to connect it to PancakeSwap.
                 </p>
               </div>
