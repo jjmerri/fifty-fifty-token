@@ -171,7 +171,7 @@ const HowToBuy = ({
                 <p className="m-0">
                   Navigate to the exchange screen from the left sidebar under
                   "trade". Click "Select a Currency" and enter the 50/50 token
-                  contract address: TBD
+                  contract address: 0x34D266A0cd7298A28D664F3FF9e16ccCa53F06f2
                 </p>
               </div>
               <div
