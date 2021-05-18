@@ -91,6 +91,18 @@ const Hero = ({
                     tag="a"
                     color="primary"
                     wideMobile
+                    href={
+                      "https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x34D266A0cd7298A28D664F3FF9e16ccCa53F06f2"
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Buy on PancakeSwap V2
+                  </Button>
+                  <Button
+                    tag="a"
+                    color="dark"
+                    wideMobile
                     href={`https://bscscan.com/token/${contractAddress}`}
                     target="_blank"
                     rel="noopener noreferrer"

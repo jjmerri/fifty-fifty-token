@@ -171,15 +171,6 @@ const Header = ({
                         >
                           Buy on PancakeSwap V2
                         </a>
-                        {/* <button
-                          href="https://exchange.pancakeswap.finance/#/swap?outputCurrency="
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="button button-primary button-wide-mobile button-sm"
-                          onClick={handleBuyClick}
-                        >
-                          Buy on PancakeSwap V2
-                        </button> */}
                       </li>
                     </ul>
                   )}
