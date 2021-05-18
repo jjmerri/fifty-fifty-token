@@ -81,6 +81,7 @@ const Hero = ({
               <p
                 className="m-0 mb-32 reveal-from-bottom"
                 data-reveal-delay="400"
+                style={{ overflowWrap: "anywhere" }}
               >
                 {`Contract Address: ${contractAddress}`}
               </p>
