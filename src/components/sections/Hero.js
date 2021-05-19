@@ -103,6 +103,16 @@ const Hero = ({
                     tag="a"
                     color="primary"
                     wideMobile
+                    href={"https://t.me/fiftyfiftytoken"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Join the Discussion
+                  </Button>
+                  <Button
+                    tag="a"
+                    color="dark"
+                    wideMobile
                     href={
                       "https://charts.bogged.finance/?token=0x34D266A0cd7298A28D664F3FF9e16ccCa53F06f2"
                     }
