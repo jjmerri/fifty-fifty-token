@@ -78,13 +78,44 @@ const Hero = ({
               >
                 {`50/50 Token is a charity token that rewards hodlers with reflection and free 50/50 giveaways.`}
               </p>
+                            <h4>
+                $1,000 already raffled with <br />
+                <a
+                  href="https://www.reddit.com/r/FiftyFiftyToken/comments/njmdda/the_first_5050_donation_made_to_eves_place_and/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <u>$500 going to charity!</u>
+                </a>{" "}
+              </h4>
+              <p>
+                Next Raffle this Friday 5/28/2021! Check out{" "}
+                <a
+                  href="https://www.reddit.com/r/FiftyFiftyToken"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  /r/FiftyFiftyToken subreddit
+                </a>{" "}
+                for most up to date info on whats going on.
+              </p>
               <p
                 className="m-0 mb-32 reveal-from-bottom"
                 data-reveal-delay="400"
                 style={{ overflowWrap: "anywhere" }}
               >
-                {`Contract Address: ${contractAddress}`}
-              </p>
+                <h4 style={{ marginBottom: 0 }}>Contract Address:</h4>{" "}
+                <div
+                  style={{
+                    backgroundColor: "white",
+                    color: "black",
+                    lineHeight: 2,
+                  }}
+                >
+                  {" "}
+                  {`${contractAddress}`}
+                </div>
+</p>
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
                   <Button
