@@ -169,7 +169,7 @@ const Header = ({
                           className="button button-primary button-wide-mobile button-sm"
                           onClick={closeMenu}
                         >
-                          Buy on PancakeSwap V2
+                          Buy Now (11% slippage)
                         </a>
                       </li>
                     </ul>

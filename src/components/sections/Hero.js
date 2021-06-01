@@ -126,7 +126,7 @@ const Hero = ({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Buy on PancakeSwap V2
+                    Buy Now (11% slippage)
                   </Button>
                   <Button
                     tag="a"
