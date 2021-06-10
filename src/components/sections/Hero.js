@@ -79,13 +79,13 @@ const Hero = ({
                 {`50/50 Token is a charity token that rewards hodlers with reflection and free 50/50 giveaways.`}
               </p>
               <h4>
-                $1,600 already raffled with <br />
+                $1,700 already raffled with <br />
                 <a
                   href="https://www.reddit.com/r/FiftyFiftyToken/comments/njmdda/the_first_5050_donation_made_to_eves_place_and/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <u>$800 going to charity!</u>
+                  <u>$900 going to charity!</u>
                 </a>{" "}
               </h4>
               <p>
