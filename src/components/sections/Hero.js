@@ -85,7 +85,7 @@ const Hero = ({
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <u>$900 going to charity!</u>
+                  <u>$850 going to charity!</u>
                 </a>{" "}
               </h4>
               <p>
