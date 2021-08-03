@@ -80,22 +80,16 @@ const Hero = ({
               </p>
               <h4>
                 $2500 already raffled with <br />
-                <a
-                  href="https://www.reddit.com/r/FiftyFiftyToken/comments/njmdda/the_first_5050_donation_made_to_eves_place_and/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <u>$1650 going to charity!</u>
-                </a>{" "}
+                $1650 going to charity!
               </h4>
               <p>
                 Check out{" "}
                 <a
-                  href="https://www.reddit.com/r/FiftyFiftyToken"
+                  href="https://www.reddit.com/r/FiftyFiftyTokenBsc"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  /r/FiftyFiftyToken subreddit
+                  /r/FiftyFiftyTokenBsc subreddit
                 </a>{" "}
                 for the most up to date info on whats going on.
               </p>

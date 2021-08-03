@@ -47,7 +47,7 @@ const FooterSocial = ({ className, ...props }) => {
         </li>
         <li style={{ marginLeft: "-12px" }}>
           <a
-            href="https://reddit.com/r/FiftyFiftyToken"
+            href="https://reddit.com/r/FiftyFiftyTokenBsc"
             target="_blank"
             rel="noopener noreferrer"
           >

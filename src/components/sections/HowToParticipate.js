@@ -43,11 +43,11 @@ const Tokenomics = ({
       <>
         Giveaways and contests will be run out of the{" "}
         <a
-          href="https://www.reddit.com/r/FiftyFiftyToken"
+          href="https://www.reddit.com/r/FiftyFiftyTokenBsc"
           target="_blank"
           rel="noopener noreferrer"
         >
-          /r/FiftyFiftyToken subreddit
+          /r/FiftyFiftyTokenBsc subreddit
         </a>{" "}
         so be sure to join. Giveaways will all be free and eligibility to
         participate will be determined before the giveaway starts. Eligibility
